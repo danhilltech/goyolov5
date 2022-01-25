@@ -45,7 +45,6 @@ RUN apt-get update && \
 RUN pip3 install typing_extensions pyyaml
 
 RUN cd /tmp && \
-    # wget -O libtorch.zip https://download.pytorch.org/libtorch/cu113/libtorch-shared-with-deps-1.10.0%2Bcu113.zip && \
     wget -O libtorch.zip https://download.pytorch.org/libtorch/cu102/libtorch-cxx11-abi-shared-with-deps-1.10.0%2Bcu102.zip && \
     unzip libtorch.zip && \
     mv /tmp/libtorch /usr/local/libtorch

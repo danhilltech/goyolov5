@@ -3,7 +3,7 @@
 {
 	"name": "Goyolo Dev",
 	"build": {
-		"dockerfile": "Dockerfile.aarch64",
+		"dockerfile": "Dockerfile.amd64.cuda",
 		"args": {
 			// Update the VARIANT arg to pick a version of Go: 1, 1.16, 1.17
 			// Append -bullseye or -buster to pin to an OS version.
@@ -17,7 +17,9 @@
 		"--init",
 		"--cap-add=SYS_PTRACE",
 		"--security-opt",
-		"seccomp=unconfined"
+		"seccomp=unconfined",
+		"--gpus",
+		"all"
 	],
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
@@ -28,18 +30,18 @@
 		"editor.formatOnSave": true,
 		"files.eol": "\n",
 		"go.toolsEnvVars": {
-			"GOFLAGS": "-tags=docker",
+			"GOFLAGS": "-tags=cuda",
 			"CGO_ENABLED": 1 // for the race detector
 		},
 		"gopls.env": {
-			"GOFLAGS": "-tags=docker"
+			"GOFLAGS": "-tags=cuda"
 		},
 		"go.testEnvVars": {
 			"": "",
 		},
 		"go.testFlags": [
 			"-v",
-			"-tags=docker",
+			"-tags=cuda",
 		],
 		"[go]": {
 			"editor.formatOnSave": true,
