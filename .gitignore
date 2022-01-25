@@ -1,0 +1,6 @@
+include
+lib
+*.pt
+.devcontainer/devcontainer.json
+tests/outputs/*
+weights
