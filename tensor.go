@@ -1,4 +1,4 @@
-package goyolo
+package goyolov5
 
 import (
 	"fmt"

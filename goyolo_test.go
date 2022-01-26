@@ -1,4 +1,4 @@
-package goyolo
+package goyolov5
 
 import (
 	"fmt"
@@ -7,7 +7,6 @@ import (
 	_ "image/png"
 	"os"
 	"path/filepath"
-	"runtime"
 	"testing"
 )
 
@@ -15,25 +14,11 @@ func kbToMb(kb uint64) uint64 {
 	return uint64(float64(kb) / 1024.0)
 }
 
-func printMemUsage(label string, t *testing.T) {
-	pc, _, _, ok := runtime.Caller(1)
-	details := runtime.FuncForPC(pc)
-	mem, err := readMemInfo("/proc/meminfo")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if ok && details != nil {
-		t.Logf("%s (%s): Free Mem %dMB", details.Name(), label, kbToMb(mem.MemFree))
-	}
-}
-
 func TestGetCUDADeviceCount(t *testing.T) {
-	printMemUsage("Pre", t)
 	_, err := atGetCUDADeviceCount()
 	if err != nil {
 		t.Fatal(err)
 	}
-	printMemUsage("Post", t)
 }
 
 func testInfer(t *testing.T, path string, yolov5 *YoloV5, expectedCount int) {

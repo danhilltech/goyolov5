@@ -1,4 +1,4 @@
-package goyolo
+package goyolov5
 
 // #cgo !cuda LDFLAGS: -lstdc++ -ltorch -ltorch_cpu -lc10
 // #cgo cuda LDFLAGS: -lstdc++ -ltorch -ltorch_cpu -lc10 -lcuda -lcudart -lcublas -lcudnn -lcaffe2_nvrtc -lnvrtc-builtins -lnvrtc -lc10_cuda  -Wl,--no-as-needed -ltorch_cuda

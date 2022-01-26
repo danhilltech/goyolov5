@@ -1,4 +1,4 @@
-package goyolo
+package goyolov5
 
 //#include "stdlib.h"
 //#include "goyolo.h"
@@ -93,7 +93,7 @@ func TorchErr() error {
 	cptr := (*C.char)(GetAndResetLastErr())
 	errStr := ptrToString(cptr)
 	if errStr != "" {
-		return fmt.Errorf("Libtorch API Error: %v\n", errStr)
+		return fmt.Errorf("libtorch API Error: %v", errStr)
 	}
 
 	return nil

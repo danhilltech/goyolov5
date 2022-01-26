@@ -1,27 +1,26 @@
 //go:build cuda
 
-package goyolo
+package goyolov5
 
 import (
 	"image"
 	"os"
-	"runtime"
 	"testing"
 )
 
 func TestLoadInferGPUs(t *testing.T) {
-	yolov5, err := NewYoloV5("weights/yolov5n/yolov5n.torchscript.gpu.batch1.pt", DeviceGPU, 640, false)
+	yolov5, err := NewYoloV5("weights/yolov5n/yolov5n.torchscript.gpu.640.pt", DeviceGPU, 640, false)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	testInfer(t, "tests/inputs/people.png", yolov5, 1)
+	testInfer(t, "tests/inputs/people.png", yolov5, 2)
 	testInfer(t, "tests/inputs/people2.png", yolov5, 5)
 
 }
 
 func loadYoloForTesting(b *testing.B) *YoloV5 {
-	yolov5, err := NewYoloV5("weights/yolov5n/yolov5n.torchscript.gpu.batch1.pt", DeviceGPU, 640, false)
+	yolov5, err := NewYoloV5("weights/yolov5n/yolov5n.torchscript.gpu.640.pt", DeviceGPU, 640, false)
 	if err != nil {
 		b.Fatal(err)
 	}
@@ -41,9 +40,6 @@ func BenchmarkInferGPU(b *testing.B) {
 	}
 	tensor := NewTensorFromImage(input)
 
-	var ms runtime.MemStats
-	runtime.ReadMemStats(&ms)
-
 	for i := 0; i < 10; i++ {
 		_, err := yolov5.Infer(tensor, 0.5, 0.4, nil)
 		if err != nil {
@@ -59,10 +55,5 @@ func BenchmarkInferGPU(b *testing.B) {
 			b.Fatal(err)
 		}
 
-		if i%100 == 0 {
-			runtime.ReadMemStats(&ms)
-			b.Logf("Alloc: %f Mb, Total Alloc: %f MB, Sys: %f MB, Number of allocation: %d\n", float32(ms.Alloc)/float32(1024*1024), float32(ms.TotalAlloc)/float32(1024*1024), float32(ms.Sys)/float32(1024*1024), ms.HeapObjects)
-
-		}
 	}
 }
