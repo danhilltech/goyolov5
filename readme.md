@@ -1,6 +1,7 @@
 # YOLOV5 for golang
 
 ## Introduction
+YOLOv5 is a modern object detection library. This library provides a light-weight, memory effecient way to run inference from torchscript export of the model. It supports the latest v6 versions of YOLOv5.
 
 
 ### Installation
